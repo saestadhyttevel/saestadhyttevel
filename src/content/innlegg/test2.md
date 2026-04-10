@@ -1,5 +1,6 @@
 ---
 tittel: Årsmøte 2025
+slug: arsmote2025
 forfatter: Styret
 datoPublisert: 18.01.2025
 datoOppdatert: 

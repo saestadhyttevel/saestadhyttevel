@@ -1,5 +1,6 @@
 ---
 tittel: Årsmøte 2026
+slug: arsmote2026
 forfatter: Styret
 datoPublisert: 18.01.2026
 datoOppdatert: 

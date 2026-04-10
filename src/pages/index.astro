@@ -1,17 +1,36 @@
 ---
+// src/pages/index.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostPreview from '../components/PostPreview.astro';
+import { getCollection } from 'astro:content';
 
+const innlegg = await getCollection('innlegg');
+const sorted = innlegg.sort((a, b) => b.data.pubDate - a.data.pubDate);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+  <div class="page">
+    <main class="left">
+      <header>
+        <h1>Sæstad Hyttevel</h1>
+        <nav aria-label="Hovedmeny">
+          <a href="/" aria-current="page">Nyheter</a>
+          <a href="/kategorier">Kategorier</a>
+          <a href="/om">Om og kontakt</a>
+        </nav>
+      </header>
+
+      <ul class="post-list">
+        {sorted.map(innlegg => (
+          <li>
+            <PostPreview innlegg={innlegg} />
+          </li>
+        ))}
+      </ul>
+    </main>
+
+    <figure class="right" aria-hidden="true">
+      <img src="/images/aerial.jpg" alt="" />
+    </figure>
+  </div>
+</BaseLayout>

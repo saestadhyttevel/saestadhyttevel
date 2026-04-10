@@ -1,0 +1,18 @@
+---
+// src/components/PostPreview.astro
+const { innlegg } = Astro.props;
+const { tittel, datoPublisert, sammendrag } = innlegg.data;
+const formatted = datoPublisert.toLocaleDateString('nb-NO', {
+  day: '2-digit', month: '2-digit', year: '2-digit'
+});
+---
+
+<article>
+  <h2>
+    <a href={`/posts/${innlegg.slug}`}>{tittel}</a>
+    <span class="meta"> – <time datetime={datoPublisert.toISOString().slice(0,10)}>
+      Publisert {formatted}
+    </time></span>
+  </h2>
+  <p>{sammendrag}</p>
+</article>
