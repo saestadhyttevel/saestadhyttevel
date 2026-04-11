@@ -1,8 +1,8 @@
 ---
 tittel: Årsmøte 2026
-slug: arsmote2026
+id: arsmote2026
 forfatter: Styret
-sammendrag: Test av sammendrag
+excerpt: Test av sammendrag
 datoPublisert: 2026-01-18
 kategorier:
   - Årsmøte

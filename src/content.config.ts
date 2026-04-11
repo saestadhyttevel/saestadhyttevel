@@ -12,11 +12,12 @@ const innlegg = defineCollection({
   loader: glob({ base: './src/content/innlegg', pattern: '**/*.{md,mdx}' }),
   schema: z.object({
     tittel: z.string(),
+    id: z.string(),
     forfatter: z.string(),
-    sammendrag: z.string(),
     datoPublisert: z.coerce.date(),
     datoOppdatert: z.coerce.date().optional(),
     kategorier: z.array(z.string()),
+    excerpt: z.string(),
   }),
 });
 

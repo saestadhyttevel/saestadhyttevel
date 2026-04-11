@@ -1,23 +1,19 @@
 ---
-// src/components/PostPreview.astro
-const { innlegg } = Astro.props;
-const { tittel, datoPublisert, sammendrag, forfatter } = innlegg.data;
+import { getCollection } from 'astro:content';
 
-console.log('innlegg.data:', innlegg.data);
-console.log('sammendrag value:', sammendrag);
-
-const formatted = datoPublisert.toLocaleDateString('nb-NO', {
-  day: '2-digit', month: '2-digit', year: '2-digit'
-});
+const innlegg = await getCollection('innlegg');
+const sorted = innlegg.sort((a, b) => b.data.datoPublisert - a.data.datoPublisert);
 ---
 
-<article>
-  <h2>
-    <a href={`/posts/${innlegg.slug}`}>{tittel}</a>
-    <span class="meta"> – <time datetime={datoPublisert.toISOString().slice(0,10)}>
-      Publisert {formatted}
-    </time></span>
-  </h2>
-  <p>{forfatter}</p>
-   <p>{sammendrag}</p>
-</article>
+{sorted.map(innlegg => (
+        <article class="post-item">
+            <h2 class="post-title">
+                <a href={`/posts/${innlegg.id}`} >{innlegg.data.tittel}</a>
+
+                <span class="meta"> – <time datetime={innlegg.data.datoPublisert.toISOString().slice(0,10)}>
+                Publisert {innlegg.data.datoPublisert.toLocaleDateString('nb-NO', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </time></span>
+            </h2>
+            <p>{innlegg.body.replace(/^#.*\r?\n+/, '').trim().slice(0, 200)}...</p>
+            </article>
+        ))}
